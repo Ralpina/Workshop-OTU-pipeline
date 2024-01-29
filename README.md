@@ -15,7 +15,7 @@ This workshop will be focused on the workflow described [here](https://github.co
    Click again on "Session" and then on "SFTP"; fill the empty fields as done for the "SSH" tab above:
    ![image](https://github.com/Ralpina/Workshop-OTU-pipeline/assets/48416466/6eee9547-90b9-4e95-b6f0-56004a19db31)  
 
-   This will allow you to upload the files provided directly.
+   This will allow you to directly upload the files provided to your own KewHPC directory.
 
    
 
