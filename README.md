@@ -1,5 +1,4 @@
-# Workshop-OTU-pipeline
-## January 2024
+# Workshop - OTU pipeline - January 2024
 This workshop will be focused on the workflow described [here](https://github.com/Ralpina/fungalOTUpipeline).
 
 ## 1. Setting up your KewHPC personal directory
