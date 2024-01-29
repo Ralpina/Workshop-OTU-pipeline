@@ -71,6 +71,11 @@ chmod +x myscript.sh
 module load python/2.7.18
 python myscript.py
 ```
+To be able to run .py and .sh, we need to move them to the upper directory ```myco```, using the following command:
+mv XXXXXXXXXXX MOVE THEM ALL. AND MAKE THEM EXECUTABLE!
+
+
+## 3. Running the pipeline
 
 The first script of this workflow will simply create directories to organise the data at the different stages of the pipeline. (You can always change the directory names to what works best for you).
 ```sh
@@ -88,7 +93,7 @@ The script will create the following directories:
 `myco/sing_fastq`  
 `myco/errors`
 
-Sequences with the extension `ab1` should be then uploaded to the newly created directoy `seqs`. The number of sequences uploaded can be checked using `ls seqs | wc -l`.  
+The number of sequences uploaded can be checked using `ls seqs | wc -l`.  
 A local database can also be downloaded from the UNITE website, for example: [UNITE v.9 database](https://doi.plutof.ut.ee/doi/10.15156/BIO/2938068), or check for new releases [here](https://unite.ut.ee/repository.php).  
   
     
