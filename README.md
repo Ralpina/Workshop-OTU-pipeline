@@ -44,7 +44,7 @@ Comments with the symbols :triangular_flag_on_post::computer: will mark the comm
    
    </details>
 
-   :triangular_flag_on_post::computer: Once the directories have been created, we can upload the sequence files .ab1 (to the folder "seqs"), the script files (to the folder "scripts"), and the UNITE database (to the folder "database"), using the SFTP connection set up earlier to navigate the proper directory.  
+   :triangular_flag_on_post::computer: Once the directories have been created, we can upload the sequence files .ab1 (to the folder "seqs"), the script files (to the folder "scripts"), and the UNITE database (to the folder "database"), using the SFTP connection set up earlier to navigate the proper directory. Notice that we are using the [UNITE v.9 database](https://doi.plutof.ut.ee/doi/10.15156/BIO/2938068), but you can look for new releases [here](https://unite.ut.ee/repository.php).  
    
    #### Scripts
    
@@ -84,7 +84,8 @@ Comments with the symbols :triangular_flag_on_post::computer: will mark the comm
       ```  
      :triangular_flag_on_post::computer: To be able to run .py and .sh, we need to copy them to the upper directory ```myco```, using the following commands:  
      ```sh
-     # assuming you are still in the myco directory, the following command will copy each file to the myco directory:
+     # assuming you are still in the myco directory,  
+     # the following command will allow you to copy each file to the myco directory:  
      cp ./scripts/1_create_dirs.sh ./
      cp ./scripts/5_fasta_to_fastq.py ./
      cp ./scripts/7_chimaera_filter.sh ./
@@ -131,10 +132,86 @@ The script will create the following directories:
 `myco/sing`  
 `myco/singR`  
 `myco/sing_fastq`  
-`myco/errors`
+`myco/errors`  
+You can check whether they have been created by typing ```ls``` in the myco folder.  
 
-The number of sequences uploaded can be checked using `ls seqs | wc -l`.  
-A local database can also be downloaded from the UNITE website, for example: [UNITE v.9 database](https://doi.plutof.ut.ee/doi/10.15156/BIO/2938068), or check for new releases [here](https://unite.ut.ee/repository.php).  
+:question: How many sequences are we working on?  
+:triangular_flag_on_post::computer: Type the following (then press enter):  
+`ls seqs | wc -l`  
+<details>
+   <summary> Answer </summary>  
+   
+   204
+   
+   </details>  
+
+:question: How many forward and how many reverse sequences?   
+:triangular_flag_on_post::computer: Type:  
+```sh 
+ls seqs/ITS1F* | wc -l    
+ls seqs/ITS4* | wc -l    
+```
+The wildcard (asterisk) will allow us to count all files starting by the string of characters provided, i.e. forward and reverse primer name, respectively.
+<details>
+   <summary> Answer </summary>  
+   
+   102 forward and 102 reverse sequences
+   
+   </details>  
+
+Let's continue running the pipeline, with the second script "2_phred.slurm". This script will perform basecalling and the first quality screening, see the explanations [here](https://github.com/Ralpina/fungalOTUpipeline/tree/main?tab=readme-ov-file#basecalling-using-phred-and-first-quality-screening).  
+:triangular_flag_on_post::computer: Type:  
+```sh
+sbatch scripts/2_phred.slurm
+```
+This command will send your job to the queueing system.  
+:triangular_flag_on_post::computer: It should run very quickly (with only 200 sequences), but you'll be able to check the status of your job by typing:  
+```squeue```  
+and see something like this:  
+![image](https://github.com/Ralpina/Workshop-OTU-pipeline/assets/48416466/7843c06a-20cb-4fd7-93d6-b3e06b5fba2e)  
+The script will produce output files with extension ".phd.1" folder "phred_out". 
+If you're interested, you can have a look at the information included in a .phd.1 file (including various quality information, bases called, etc.) by typing:  
+```more phred_out/ITS1F_SV02S2D02.ab1.phd.1```  
+
+
+:triangular_flag_on_post::computer: Some sanity checks after running this script might include having a look at:  
+ - The number of phd.1 files generated. We would expect this to be smaller than the number of initial sequences, as an [initial quality screening](https://github.com/Ralpina/fungalOTUpipeline/blob/main/README.md#basecalling-using-phred-and-first-quality-screening) was also performed.     
+   ```ls phred_out | wc -l```  
+   <details>
+   <summary> Answer... </summary>  
+   
+    155
+   
+   </details>  
+ - The number of sequences removed by the initial quality screening:  
+   ```wc -l waste.txt```
+   <details>
+   <summary> Answer... </summary>  
+   
+    49
+   
+   </details> 
+ - ...and their identity, if you are interested:  
+   ```cat waste.txt``` or ```more waste.txt```   
+ - The sum of the two numbers above, which should correspond to the number of initial sequences in ```seqs```
+    <details>
+    <summary> Answer... </summary>  
+   
+    155 + 49 = 204
+   
+    </details> 
+ - finally, at the error file, normally empty:  
+    ```cat errors/errorphred.txt```  
+
+
+
+
+
+ 
+
+
+
+
   
     
    
