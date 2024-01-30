@@ -11,8 +11,8 @@ Comments with the symbols :triangular_flag_on_post::computer: will mark the comm
    ![image](https://github.com/Ralpina/Workshop-OTU-pipeline/assets/48416466/a0eb7233-d02d-457e-9c3c-cc9aee469e5d)  
    
    :triangular_flag_on_post::computer: This will prompt you to insert your Kew account password; after that, you should see the below:  
-   ![image](https://github.com/Ralpina/Workshop-OTU-pipeline/assets/48416466/bc3b4d86-bf49-444f-bdc1-7b7dc4082f81)
-
+   ![image](https://github.com/Ralpina/Workshop-OTU-pipeline/assets/48416466/730eb4d1-fe5d-45ff-83c5-9ac3635ea578)
+   
    :triangular_flag_on_post::computer: Click again on "Session" and then on "SFTP"; fill the empty fields as done for the "SSH" tab above:
    ![image](https://github.com/Ralpina/Workshop-OTU-pipeline/assets/48416466/6eee9547-90b9-4e95-b6f0-56004a19db31)  
 
