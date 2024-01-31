@@ -25,6 +25,7 @@ Comments with the symbols :triangular_flag_on_post::computer: will mark the comm
    ```mkdir myco/seqs```  
    ```mkdir myco/scripts```  
    ```mkdir myco/database```  
+   ```mkdir myco/FUNGuild```   
    The command ```mkdir``` creates a new empty directory (or folder). We can check whether the directories above have been created by using the command ```ls```, which will list all the files in your current directory. To "go" to a specific directory, we can type the change directory command ```cd``` followed by the path and the name of the directory. For example:  
    ```cd myco/seqs```  
    To go back to the upper directory, we can type:  
@@ -46,11 +47,11 @@ Comments with the symbols :triangular_flag_on_post::computer: will mark the comm
    
    </details>
 
-   :triangular_flag_on_post::computer: Once the directories have been created, we can upload the sequence files .ab1 (to the folder "seqs"), the script files (to the folder "scripts"), and the UNITE database (to the folder "database"), using the SFTP connection set up earlier to navigate the proper directory. Notice that we are using the [UNITE v.9 database](https://doi.plutof.ut.ee/doi/10.15156/BIO/2938068), but you can look for new releases [here](https://unite.ut.ee/repository.php).  
+   :triangular_flag_on_post::computer: Once the directories have been created, we can upload the sequence files .ab1 (to the folder "seqs"), the script files (to the folder "scripts"), the script FUNGuild.py (to the folder FUNGuild), and the UNITE database (to the folder "database"), using the SFTP connection set up earlier to navigate the proper directory. Notice that we are using the [UNITE v.9 database](https://doi.plutof.ut.ee/doi/10.15156/BIO/2938068), but you can look for new releases [here](https://unite.ut.ee/repository.php).  
    
-   #### Scripts
+#### Scripts
    
-   In this workflow, we will find three types of scripts (see "scripts" folder):  
+In this workflow, we will find three types of scripts (see "scripts" folder):  
    - slurm scripts. They can have any name and be run from any directory, provided that the right working directory path is specified within the script header. To prepare a slurm script, have a look at the [KewHPC guidelines](https://rbg-kew-bioinformatics-utils.readthedocs.io/en/latest/KewHPC/Running_Analysis_with_SLURM/), explaining all the arguments that can be included in the script header, for example the directory you want to run the analyses in, and the log files path. It's always useful to include a log file for error messages. For instance, one of our slurm scripts called "2_phred.slurm" includes the following arguments:  
    ```#SBATCH --chdir=/home/yourusername/myco/```    
    ```#SBATCH --error=/home/yourusername/myco/errors/errorphred.txt```    
@@ -107,8 +108,9 @@ Comments with the symbols :triangular_flag_on_post::computer: will mark the comm
      chmod +x 15_funguild.sh
      ``` 
 
+You can have a look at what each script includes by opening them in a text editor (e.g. Notepad++).
 
-   :heavy_exclamation_mark: **Always check that a job has finished before starting the next one!**
+:heavy_exclamation_mark: **Always check that a job has finished before starting the next one!**
      
 
  <details>
