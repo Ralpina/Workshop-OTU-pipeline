@@ -390,7 +390,7 @@ grep -c "^>" results/notmatched_filtered.fasta
 
 :triangular_flag_on_post::computer: Type:  
 ```sh
-scripts/10_denovo_centroids.slurm
+sbatch scripts/10_denovo_centroids.slurm
 ```  
 The above will run very quickly. However, we should always check that a job has finished before starting the next one, as explained above. For slurm scripts, we can check by using ```squeue```, as mentioned at step 2.   
 
@@ -417,7 +417,7 @@ In this step we will attempt the [assignment of ecological guilds](https://githu
 </details> 
 
 
-We will be able to explore the results by looking at the following output tables:
+:triangular_flag_on_post::computer: We will be able to explore the results by looking at the following output tables:
 
 - All sequences matching UNITE accessions at 97%:  
   ```less -S FUNGuild/guilds.SH.txt```  
