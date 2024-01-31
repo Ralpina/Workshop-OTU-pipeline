@@ -40,7 +40,9 @@ Comments with the symbols :triangular_flag_on_post::computer: will mark the comm
    ```cat filename``` to print the content of a file  
    ```more filename``` to print the content of a file while scrolling  
    ```pwd``` if you are not sure where you are and you want to see your current working directory  
-   You will have the opportunity to try them later on.
+   You will have the opportunity to try them later on.  
+   
+   :heavy_exclamation_mark: Do not use "Ctrl+c" to copy text, as this will cancel any ongoing process!
    
    </details>
 
@@ -104,7 +106,9 @@ Comments with the symbols :triangular_flag_on_post::computer: will mark the comm
      chmod +x 14_searchUniteFree.sh
      chmod +x 15_funguild.sh
      ``` 
-   
+
+
+   :heavy_exclamation_mark: **Always check that a job has finished before starting the next one!**
      
 
  <details>
@@ -282,9 +286,147 @@ This will essentially generate contigs assembled from forward and reverse primer
    
     </details>  
 
+
+## 5
+:triangular_flag_on_post::computer: Type:   
+```sh
+module load python/2.7.18
+python 5_fasta_to_fastq.py
+```
+[Script 5](https://github.com/Ralpina/fungalOTUpipeline?tab=readme-ov-file#merging-fasta-and-quality-files-to-obtain-fastq-files) will produce a fastq file for the following steps.  
+<details>
+<summary> You should see the following messages... </summary>  
    
+    Converted 61 records
+    Converted 18 records
+    Converted 13 records
    
+</details>   
+
+
+## 6
+:triangular_flag_on_post::computer: Type:   
+```sh
+sbatch scripts/6_trim_filter.slurm
+```
+See the explanations for this second [quality filtering here](https://github.com/Ralpina/fungalOTUpipeline?tab=readme-ov-file#filtering-and-trimming-sequences).  
+:triangular_flag_on_post::computer: After this step, we can have a look at the number of "clean" singlets and contigs:  
+```grep -c "^>" ./results/clean_filt_singlets.fasta```  
+```grep -c "^>" ./results/clean_contigs.fasta```    
+<details>
+<summary> Answer... </summary>  
    
+     17 singlets
+     61 contigs
+ 
+</details>  
+
+## 7
+:triangular_flag_on_post::computer: Type:  
+```sh
+./7_chimaera_filter.sh
+```
+[This will filter](https://github.com/Ralpina/fungalOTUpipeline?tab=readme-ov-file#filtering-chimaeric-sequences) chimaeric sequences, if they occur. A PCR chimaera is an artefactual sequence generated from two different DNA templates during PCR.  
+At the end of this step, the following files will include your sets of filtered sequences:  
+**results/clean_nochim_singlets.fasta**  
+**results/clean_nochim_contigs.fasta**  
+<details>
+<summary> How many? </summary>  
+
+     grep -c "^>" results/clean_nochim_singlets.fasta  
+     # 17
+     grep -c "^>" results/clean_nochim_contigs.fasta 
+     # 61
+</details>  
+
+## 8
+We can now attempt our OTU assignments. The following script will perform a search against UNITE v.9 and produce several files, as explained [here](https://github.com/Ralpina/fungalOTUpipeline?tab=readme-ov-file#searching-filtered-sequences-against-the-unite-database).   
+:triangular_flag_on_post::computer: Type:  
+```sh
+sbatch scripts/8_searchUnite.slurm
+```
+After this step, we can have a look at the taxonomic composition of our dataset (if a match at 97% similarity was found in UNITE).  
+
+:triangular_flag_on_post::computer: We can either type:  
+```less -S results/SH_table.uc```  
+and scroll down, or  
+```cut -f 4,9,10 results/SH_table.uc | less -S```  
+which will only display (1) similarity threshold, (2) contig or singlet name, (3) taxonomic assignment. Alternatively, we can download the table using the STFP connection.   
+We can also count how many assignments have been made, by typing:  
+```grep -v -c "^N" results/SH_table.uc```  
+<details>
+<summary> How many? </summary>  
+   60
+</details>   
+
+versus how many contigs/singlets have not been assigned:   
+```grep -c "^N" results/SH_table.uc```  
+
+<details>
+<summary> How many? </summary>  
+   26
+</details>  
+
+Those not assigned will potentially be our "_*de novo*_ OTUs" and will be further filtered to ensure that we are not describing new species based on low-quality sequences!  
+
+
+## 9-14
+The steps we will follow below will deal with the filtering and the "identification" of "_*de novo*_ OTUs". Because of time constraints, we won't focus too much on each step and the intermediate files generated, but they are all described in detail [here](https://github.com/Ralpina/fungalOTUpipeline?tab=readme-ov-file#identifying-sequences-with-no-matching-taxa-in-unite-de-novo-otus).  
+
+:triangular_flag_on_post::computer: Type:  
+```sh
+sbatch scripts/9_hard_filt.slurm
+# We can have a look at the number of sequences filtered out after the hard filtering, by comparing the two files:
+grep -c "^>" results/notmatched.fasta
+grep -c "^>" results/notmatched_filtered.fasta
+```
+<details>
+<summary> How many? </summary>  
+   
+   18 initial sequences  
+   
+   1 sequence left!  
+</details>   
+
+:triangular_flag_on_post::computer: Type:  
+```sh
+scripts/10_denovo_centroids.slurm
+```  
+The above will run very quickly. However, we should always check that a job has finished before starting the next one, as explained above. For slurm scripts, we can check by using ```squeue```, as mentioned at step 2.   
+
+:triangular_flag_on_post::computer: Type:    
+```sh
+./11_match_unmatched.sh
+./14_searchUniteFree.sh
+```   
+Scripts 12 and 13 are omitted as they represent an alternative way to identify de novo sequences, by using a blast against NCBI rather than a search against UNITE. You might want to try them as well in the future.  
+
+## 15  
+In this step we will attempt the [assignment of ecological guilds](https://github.com/Ralpina/fungalOTUpipeline?tab=readme-ov-file#assigning-ecological-guilds), using [FUNGuild](https://github.com/UMNFuN/FUNGuild).  
+
+:triangular_flag_on_post::computer: Type:    
+```sh
+./15_funguild.sh
+```
+
+<details>
+<summary> Expand to see last lines of output message... </summary>  
+   
+   ![image](https://github.com/Ralpina/Workshop-OTU-pipeline/assets/48416466/6944625a-49b9-4c8d-a699-b353ef484342)
+  
+</details> 
+
+
+We will be able to explore the results by looking at the following output tables:
+
+- All sequences matching UNITE accessions at 97%:  
+  ```less -S FUNGuild/guilds.SH.txt```  
+- All *de novo* sequences:  
+   ```less -S FUNGuild/denovo.guilds.SH.txt```  
+- Concatenated table (all matching + de novo):  
+   ```less -S FUNGuild/allguilds.txt```  
+
+
 
 
 
