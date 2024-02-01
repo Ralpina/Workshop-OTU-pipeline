@@ -424,7 +424,7 @@ In this step we will attempt the [assignment of ecological guilds](https://githu
 ```
 
 <details>
-<summary> Expand to see last lines of output message... </summary>  
+<summary> Expand to see the last lines of the output message... </summary>  
    
    ![image](https://github.com/Ralpina/Workshop-OTU-pipeline/assets/48416466/6944625a-49b9-4c8d-a699-b353ef484342)
   
