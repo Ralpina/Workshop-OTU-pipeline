@@ -123,7 +123,8 @@ You can have a look at what each script includes by opening them in a text edito
 
 ## Running the pipeline
 ## 1
-The first script of this workflow will simply create directories to organise the data at the different stages of the pipeline. (You can always change the directory names to what works best for you).
+The first script of this workflow will simply create directories to organise the data at the different stages of the pipeline. (You can always change the directory names to what works best for you).  
+:triangular_flag_on_post::computer: Type:  
 ```sh
 ./1_create_dirs.sh
 
