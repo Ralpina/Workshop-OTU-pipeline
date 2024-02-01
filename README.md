@@ -221,7 +221,7 @@ This script will [prepare the sequences for the assembly](https://github.com/Ral
 
 
 :triangular_flag_on_post::computer: Some sanity checks:  
- - We can have a look at the number of unique codes extracted from the file names, where by unique code we indicate the code associated to a DNA template:        
+ - We can have a look at the number of unique codes extracted from the file names, where by unique code we indicate the code associated with a DNA template:        
    ```wc -l codes.txt```  
    <details>
    <summary> Answer... </summary>  
