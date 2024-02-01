@@ -329,7 +329,7 @@ See the explanations for this second [quality filtering here](https://github.com
 ./7_chimaera_filter.sh
 ```
 [This will filter](https://github.com/Ralpina/fungalOTUpipeline?tab=readme-ov-file#filtering-chimaeric-sequences) chimaeric sequences, if they occur. A PCR chimaera is an artefactual sequence generated from two different DNA templates during PCR.  
-At the end of this step, the following files will include your sets of filtered sequences:  
+At the end of this step, the following files will include your sets of quality-filtered sequences:  
 **results/clean_nochim_singlets.fasta**  
 **results/clean_nochim_contigs.fasta**  
 <details>
@@ -368,6 +368,18 @@ versus how many contigs/singlets have not been assigned:
 <summary> How many? </summary>  
    26
 </details>  
+
+
+<details>
+<summary> Wondering why the number of assigned+unassigned sequences doesn't correspond to the number of quality-filtered sequences? </summary>  
+   
+   Script 8 carries out additional manipulations on the sequences for which a match in UNITE was not found, including disassembling contigs. 
+   See the details [here](https://github.com/Ralpina/fungalOTUpipeline?tab=readme-ov-file#searching-filtered-sequences-against-the-unite-database).
+   
+</details>  
+
+
+
 
 Those not assigned will potentially be our "_*de novo*_ OTUs" and will be further filtered to ensure that we are not describing new species based on low-quality sequences!  
 
