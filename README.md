@@ -92,7 +92,6 @@ In this workflow, we will find three types of scripts (see "scripts" folder):
      cp ./scripts/1_create_dirs.sh ./
      cp ./scripts/5_fasta_to_fastq.py ./
      cp ./scripts/7_chimaera_filter.sh ./
-     cp ./scripts/5_fasta_to_fastq.py ./
      cp ./scripts/8b_fasta_to_fastq.py ./
      cp ./scripts/11_match_unmatched.sh ./
      cp ./scripts/13_centroids_blast_summary.py ./
