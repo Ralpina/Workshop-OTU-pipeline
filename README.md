@@ -355,7 +355,7 @@ and scroll down, or
 ```cut -f 4,9,10 results/SH_table.uc | less -S```  
 which will only display (1) similarity threshold, (2) contig or singlet name, (3) taxonomic assignment. Alternatively, we can download the table using the STFP connection.   
 We can also count how many assignments have been made, by typing:  
-```grep -v -c "^N" results/SH_table.uc```  
+```grep -c "^H" results/SH_table.uc```  
 <details>
 <summary> How many? </summary>  
    60
