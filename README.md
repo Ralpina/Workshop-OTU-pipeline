@@ -64,7 +64,7 @@ In this workflow, we will find three types of scripts (see "scripts" folder):
       cd myco     
       nano scripts/2_phred.slurm
       ```        
-       :triangular_flag_on_post::computer: then manually replace "yourusername" with your Kew username (in the format xx00kg) at lines 3,5,6.  Once you've finished, use Ctrl+o to save your changes and Ctrl+x to exit the text editor.  
+       :triangular_flag_on_post::computer: then manually replace "yourusername" with your Kew username (in the format xx00kg) at lines 3,5,6.  Once you've finished, use Ctrl+o to save your changes, then press Enter, and Ctrl+x to exit the text editor.  
       :triangular_flag_on_post::computer: Do the same for the following scripts: 3_phd2fasta.slurm, 4_phrap_assembly.slurm, 6_trim_filter.slurm, 8_searchUnite.slurm, 9_hard_filt.slurm, 10_denovo_centroids.slurm, 12_centroids_blastn.slurm.  
 
      Eventually, you will run slurm scripts by typing ```sbatch```, followed by the name of your script, as in:    
