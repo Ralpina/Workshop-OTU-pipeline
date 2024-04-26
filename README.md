@@ -437,8 +437,7 @@ In this step we will attempt the [assignment of ecological guilds](https://githu
   ```less -S FUNGuild/guilds.SH.txt```  
 - All *de novo* sequences:  
    ```less -S FUNGuild/denovo.guilds.SH.txt```  
-- Concatenated table (all matching + de novo):  
-   ```less -S FUNGuild/allguilds.txt```  
+ 
 
 
 
